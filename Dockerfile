@@ -6,4 +6,12 @@ RUN chmod 755 /usr/local/bin/traefik-cert
 
 RUN apk -U add ca-certificates
 
-ENTRYPOINT ["/usr/local/bin/traefik-cert", "exec", "docker-entrypoint.sh"]
+ENV CERT=/tmp/server.crt \
+    KEY=/tmp/server.key
+
+CMD []
+ENTRYPOINT ["/usr/local/bin/traefik-cert", "exec", "docker-entrypoint.sh", \
+            "postgres", "-c", "ssl=on", \
+            "-c", "ssl_cert_file=/tmp/server.crt", \
+            "-c", "ssl_key_file=/tmp/server.key" \
+           ]
