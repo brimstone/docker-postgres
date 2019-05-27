@@ -1,13 +1,14 @@
 FROM postgres:alpine
 
-ADD https://github.com/brimstone/traefik-cert/releases/download/0.2.0/traefik-cert_linux_amd64 /usr/local/bin/traefik-cert
+ADD https://github.com/brimstone/traefik-cert/releases/download/0.3.0/traefik-cert_linux_amd64 /usr/local/bin/traefik-cert
 #COPY traefik-cert /usr/local/bin/traefik-cert
 RUN chmod 755 /usr/local/bin/traefik-cert
 
 RUN apk -U add ca-certificates
 
 ENV CERT=/tmp/server.crt \
-    KEY=/tmp/server.key
+    KEY=/tmp/server.key \
+    OWNER=postgres:
 
 CMD []
 ENTRYPOINT ["/usr/local/bin/traefik-cert", "exec", "--", \
