@@ -6,6 +6,8 @@ RUN chmod 755 /usr/local/bin/traefik-cert
 
 RUN apk -U add ca-certificates
 
+COPY hostssl.sh /docker-entrypoint-initdb.d/hostssl.sh
+
 ENV CERT=/tmp/server.crt \
     KEY=/tmp/server.key \
     OWNER=postgres:
